@@ -1,0 +1,28 @@
+---
+title: "BIMM 143 HW Class 6"
+output: pdf
+date: "2024-04-21"
+---
+First I need to install the bio3d packages in the console.
+```{r}
+library(bio3d)
+
+s1 <- read.pdb("4AKE") # kinase with drug
+s2 <- read.pdb("1AKE") # kinase no drug
+s3 <- read.pdb("1E4Y") # kinase with drug
+
+#input of the function is a read.pdb file/protein of choice
+#the function takes in a protein pdb file and the output of the function is the plotted version using parameters of the trimmed PDB file and #atom$b command.
+
+plot <- function (x)
+{
+  plotb3(trim.pdb(x, chain="A", elety="CA")$atom$b, sse= trim.pdb(x, chain = "A", elety="CA"), typ="l", ylab="Bfactor")
+}
+
+plot(s1)
+plot(s2)
+plot(s3)
+
+```
+
+
