@@ -1,0 +1,145 @@
+---
+title: "Class 5: Data visualization with ggplot"
+author: "Justin Lu (PID: A16318305)"
+format: pdf
+toc: true
+---
+
+Today we will have our first play with the *ggplot2** package - one of the most popular graphics packages on the planet. 
+
+There are many plotting systems in R. These include so-called *"base"* plotting/graphics.
+
+```{r}
+plot(cars)
+```
+
+Base plot is generally rather short code annd somewhat dull plots - but it is always there for you and is really fast for big datasets
+
+If I want to use **ggplot2** it takes some more work.
+
+
+```{r}
+#ggplot(cars)
+```
+
+I need to install the package first to my computer. To do this I can use the function `install.packages()` but install packages should always be done in the console and not in running code.
+
+Every time I want to use a package I need to load it up with a `library()` call
+
+```{r}
+#install.packages("ggplot2") is done in the console
+library(ggplot2)
+```
+
+Now finally I can use the ggplot
+
+```{r}
+ggplot(cars) 
+```
+
+Every ggplot has at least 3 things: 
+
+- **data** (the data.frame with the data you want to plot)
+- **aes** (the aesthetics mapping of the data to the plot)
+- **geom** (how do you want the plot to look, points, lines, columns, etc.)
+
+```{r}
+ggplot(cars) + aes (x=speed, y = dist) + geom_point() + geom_smooth()
+```
+
+I want a linear model and no standard error bounds shown on my plot.  I also want nicer axis labels, a tittle, etc.
+```{r}
+bp <- ggplot(cars) + aes (x=speed, y = dist) + geom_point()
+```
+
+```{r}
+bp + geom_smooth(se = FALSE, method ="lm") + labs(title = "Stopping Distance of Old Cars", x = "Speed (MPH)", y= "Distance (ft)", caption = "From the Cars dataset") + theme_bw()
+```
+
+## A more complicated scatter plot
+
+Here we make a plot of gene expression data:
+
+```{r}
+url <- "https://bioboot.github.io/bimm143_S20/class-material/up_down_expression.txt"
+genes <- read.delim(url)
+head(genes)
+```
+```{r}
+nrow(genes)
+ncol(genes)
+table(genes$State)
+round(sum(genes$State == "up") / nrow(genes) * 100,2)
+```
+
+```{r}
+p <- ggplot(genes) + aes(x = Condition1, y = Condition2, col = State) + geom_point()
+```
+
+```{r}
+p + scale_colour_manual( values=c("blue","gray","red") ) +  labs(title = "Gene Expression Changes Upon Drug Treatment", x = "Control (no drug)", y = "Drug Treatment")
+```
+
+## Exploring the gapminder dataset
+
+Here we will load up the gapminder dataset to get practice with different aes mapping
+
+```{r}
+url <- "https://raw.githubusercontent.com/jennybc/gapminder/master/inst/extdata/gapminder.tsv"
+
+gapminder <- read.delim(url)
+```
+
+How many entries rows are in this dataset?
+
+```{r}
+nrow(gapminder)
+```
+
+```{r}
+head(gapminder)
+```
+
+```{r}
+table(gapminder$year)
+```
+
+
+> Q. How many continents?
+
+```{r}
+table(gapminder$continent)
+```
+
+I could use the `unique()` function...
+
+```{r}
+unique(gapminder$continent)
+length(unique(gapminder$continent))
+```
+
+>Q. How many countries?
+
+```{r}
+length(unique(gapminder$country))
+```
+
+```{r}
+ggplot(gapminder) + aes(x = gdpPercap, y = lifeExp) + geom_point(col = "blue")
+```
+
+```{r}
+library (dplyr)
+gapminder_2007 <- filter(gapminder, year == 2007)
+head(gapminder_2007)
+```
+
+Plot of 2007 with population and continent data
+```{r}
+ggplot(gapminder_2007) + aes(x= gdpPercap, y= lifeExp, col = continent, size = pop) + geom_point(alpha = 0.4)
+```
+
+```{r}
+ggplot(gapminder) + aes (x = gdpPercap, y = lifeExp) + geom_point() + facet_wrap(~year)
+``` 
+
