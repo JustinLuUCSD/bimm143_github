@@ -3,7 +3,7 @@ My classwork for [BIMM143 Spring 2024](https://bioboot.github.io/bimm143_S24/) a
 
 - **Class 4** [R Basics](https://github.com/JustinLuUCSD/bimm143_github/blob/main/Class04/Class04.pdf)
 - **Class 5** [Data visualization with ggplot](https://github.com/JustinLuUCSD/bimm143_github/blob/main/class05/class05.pdf)
-- **Class 6** [R Functions](https://github.com/JustinLuUCSD/bimm143_github/blob/main/class06/class06.pdf)
+- **Class 6** [R Functions](class06/class06.md)
 - **Class 7** [Machine Learning 1](https://github.com/JustinLuUCSD/bimm143_github/blob/main/class07/class07.pdf)
 - **Class 8** [Breast Cancer Mini Project](https://github.com/JustinLuUCSD/bimm143_github/blob/main/class08/class08minilab.pdf)
 - **Class 9** [Candy Analysis Mini Project](https://github.com/JustinLuUCSD/bimm143_github/blob/main/class09/class09.pdf)
