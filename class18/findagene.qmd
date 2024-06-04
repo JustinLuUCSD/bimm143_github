@@ -1,0 +1,30 @@
+---
+title: "Untitled"
+format: html
+---
+
+```{r}
+library(bio3d)
+msa <- read.fasta("muscle-I20240530-230936-0002-29378947-p1m.fa")
+sim_matrix <- seqidentity(msa)
+library(pheatmap)
+
+```
+
+
+```{r}
+pheatmap(sim_matrix, cluster_rows = TRUE, cluster_cols = TRUE, 
+         display_numbers = FALSE, number_format = "%.2f")
+```
+
+
+```{r}
+
+# Step 3: Search the PDB for similar structures using the first sequence in the MSA
+blast_results <- blast.pdb(msa)
+
+# Step 4: Analyze and visualize the results
+# View the top 10 hits
+head(blast_results, 3)
+```
+
